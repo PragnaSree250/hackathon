@@ -44,9 +44,14 @@ The frontend serves the Citizen Shield and Police Command dashboards.
 
 ---
 
-## 🔑 Note on Environment Variables
-For ease of evaluation during the hackathon, the `backend/.env` file containing the necessary API keys (`GEMINI_API_KEY`) has been included in this repository. 
-**No manual API key configuration is required to test the AI features.**
+## 🔑 Note on Environment Variables (API Keys)
+For security reasons, the `GEMINI_API_KEY` has not been hardcoded into this repository. **To run the AI features, you must configure your own Gemini API key:**
+
+1. Navigate to the `backend` folder.
+2. Create a new file named exactly `.env`.
+3. Add your Gemini API key inside it like this: `GEMINI_API_KEY=your_key_here`
+
+*(Alternatively, if your hackathon portal has a private "Notes to Judges" section in the submission form, the team has provided our dedicated API key there for your convenience.)*
 
 ---
 
