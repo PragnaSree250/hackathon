@@ -1,5 +1,7 @@
 # Sentinel: Multi-Agency Safety Platform
 
+**🏆 LIVE DEMO:** [https://hackathon-orpin-zeta.vercel.app/](https://hackathon-orpin-zeta.vercel.app/)
+
 Sentinel is a next-generation platform for public safety, cyber threat neutralization, and cross-agency intelligence sharing. It features dual workspaces (Citizen & Government) and integrates live AI evaluations including chatbot heuristics, deepfake media scanning, and banknote counterfeit analysis.
 
 ---
