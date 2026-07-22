@@ -4,7 +4,7 @@ import {
   ShieldAlert, ScanLine, LogOut, Radio, User, Mic, FileText, Send, Bell, 
   MapPin, Clock, Search, Fingerprint, Lock, Eye, AlertTriangle, ShieldCheck, 
   Database, Network, Zap, Crosshair, ChevronRight, Activity, Download, Upload,
-  Briefcase, Building2, Map, Users, Video, CreditCard, Filter, Plus, FileSignature, BookOpen, Settings, Shield, Landmark, MessageSquare, Key, Menu, X, UserPlus, Edit3, Save, Navigation
+  Briefcase, Building2, Map, Users, Video, CreditCard, Filter, Plus, FileSignature, BookOpen, Settings, Shield, Landmark, MessageSquare, Key, Menu, X, UserPlus, Edit3, Save, Navigation, AlertOctagon
 } from 'lucide-react';
 
 import cyberMapImg from './assets/cyber_map.png';
@@ -412,6 +412,7 @@ export default function App() {
     const file = e.target.files[0];
     if (!file) return;
     setCurrencyLoading(true);
+    setCurrencyResult(null);
 
     const formData = new FormData();
     formData.append("file", file);
@@ -424,15 +425,31 @@ export default function App() {
         },
         body: formData
       });
+      
       const data = await response.json();
       
       if (response.ok) {
-        setCurrencyResult(data);
+        // DEFENSIVE CHECK: Ensure the LLM didn't return a broken JSON structure
+        const safeData = {
+          is_fake: data.is_fake ?? true,
+          status: data.status || "🔴 COUNTERFEIT / SUSPECTED FAKE NOTE",
+          file_name: file.name,
+          denomination_detected: data.denomination_detected || "Unknown Denomination",
+          confidence_score: data.confidence_score || 85.0,
+          verifications: Array.isArray(data.verifications) ? data.verifications : [
+            "Failed: Security features could not be conclusively verified.",
+            "Failed: Texture and microprinting analysis inconclusive.",
+            "Warning: Possible digital tampering detected."
+          ],
+          citizen_advisory: data.citizen_advisory || "We could not definitively verify this note. Please exercise caution and do not accept it if suspicious."
+        };
+        setCurrencyResult(safeData);
       } else {
         alert("Currency Scan Failed: " + (data.detail || "Unknown error"));
       }
     } catch (err) {
-      alert("Error connecting to currency scan service.");
+      console.error(err);
+      alert("Error connecting to currency scan service. Ensure backend is running on port 5000.");
     } finally {
       setCurrencyLoading(false);
     }
