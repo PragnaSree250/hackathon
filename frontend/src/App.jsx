@@ -231,7 +231,7 @@ export default function App() {
   const [officialSubmittedReports, setOfficialSubmittedReports] = useState([]);
 
   // Settings State
-  const [serverEndpoint, setServerEndpoint] = useState("http://127.0.0.1:5000");
+  const [serverEndpoint, setServerEndpoint] = useState("https://hackathon-cr3e.onrender.com");
 
   const regionalTranslations = {
     hi: "महत्वपूर्ण चेतावनी: भारतीय कानून प्रवर्तन एजेंसियां कभी भी वीडियो कॉल के माध्यम से जांच नहीं करती हैं और न ही पैसे की मांग करती हैं।",
